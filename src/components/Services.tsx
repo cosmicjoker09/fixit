@@ -1,8 +1,10 @@
 import { Tv, Wind, Refrigerator, Fan, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function Services() {
   const [visibleCards, setVisibleCards] = useState<boolean[]>([]);
+  const navigate = useNavigate();
 
   const services = [
     {
@@ -69,7 +71,7 @@ export function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {services.map((service, index) => (
             <div
               key={index}
@@ -112,8 +114,11 @@ export function Services() {
                   <p className="text-xs text-green-600 font-semibold">Free consultation included</p>
                 </div>
 
-                <button className="w-full bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-semibold py-2.5 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group/btn shadow-lg hover:shadow-xl">
-                  <span>Book Service</span>
+                <button
+                  onClick={() => navigate(`/services?service=${service.title}`)}
+                  className="w-full bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-semibold py-2.5 rounded-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 group/btn shadow-lg hover:shadow-xl"
+                >
+                  <span>View Details</span>
                   <ArrowRight className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" />
                 </button>
               </div>

@@ -1,10 +1,20 @@
 import { Star, Check, Tag } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BookingModal } from '../components/BookingModal';
+import { useSearchParams } from 'react-router-dom';
 
 export default function ServicesPage() {
+  const [searchParams] = useSearchParams();
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [selectedAppliance, setSelectedAppliance] = useState<string>('');
+
+  useEffect(() => {
+    const service = searchParams.get('service');
+    if (service) {
+      setSelectedAppliance(service);
+      setIsBookingOpen(true);
+    }
+  }, [searchParams]);
   const appliances = [
     {
       id: 1,

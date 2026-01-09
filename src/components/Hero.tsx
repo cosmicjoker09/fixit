@@ -30,16 +30,16 @@ export function Hero() {
             We fix it right, the first time.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 scroll-reveal" style={{ animationDelay: '0.3s' }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 scroll-reveal w-full sm:w-auto px-4 sm:px-0" style={{ animationDelay: '0.3s' }}>
             <button
               onClick={scrollToBooking}
-              className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-2xl hover:shadow-orange-500/50 transform hover:scale-105 w-full sm:w-auto"
+              className="bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 shadow-2xl hover:shadow-orange-500/50 transform hover:scale-105 w-full sm:w-auto"
             >
               Book a Repair Now
             </button>
             <a
               href="tel:+1234567890"
-              className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 backdrop-blur-sm w-full sm:w-auto transform hover:scale-105"
+              className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 backdrop-blur-sm w-full sm:w-auto transform hover:scale-105"
             >
               Call for Emergency
             </a>

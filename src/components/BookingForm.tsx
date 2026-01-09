@@ -2,11 +2,22 @@ import { useState } from 'react';
 import { Send, CheckCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
+const brands: { [key: string]: string[] } = {
+  'TV': ['Samsung', 'LG', 'Sony', 'Mi', 'OnePlus', 'VU', 'Thomson', 'Other'],
+  'AC': ['Voltas', 'Daikin', 'LG', 'Samsung', 'Hitachi', 'Carrier', 'Videocon', 'Other'],
+  'Refrigerator': ['Samsung', 'LG', 'Whirlpool', 'Godrej', 'Haier', 'Sony', 'Panasonic', 'Other'],
+  'Cooler': ['Bajaj', 'Symphony', 'Havells', 'Crompton', 'Usha', 'Other'],
+  'Washing Machine': ['Samsung', 'LG', 'Whirlpool', 'Godrej', 'IFB', 'Haier', 'BPL', 'Other'],
+  'Microwave': ['Samsung', 'LG', 'IFB', 'Panasonic', 'Whirlpool', 'Godrej', 'Onida', 'Other'],
+  'Other': ['Other'],
+};
+
 export function BookingForm() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     appliance_type: '',
+    appliance_brand: '',
     issue_description: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,10 +41,20 @@ export function BookingForm() {
         name: '',
         phone: '',
         appliance_type: '',
+        appliance_brand: '',
         issue_description: '',
       });
 
-      setTimeout(() => setIsSuccess(false), 5000);
+      setTimeout(() => {
+        setIsSuccess(false);
+        setFormData({
+          name: '',
+          phone: '',
+          appliance_type: '',
+          appliance_brand: '',
+          issue_description: '',
+        });
+      }, 5000);
     } catch (err) {
       setError('Failed to submit booking. Please call us directly.');
       console.error('Booking error:', err);
@@ -125,27 +146,52 @@ export function BookingForm() {
             </div>
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="appliance_type" className="block text-sm font-semibold text-gray-700 mb-2">
-              Appliance Type *
-            </label>
-            <select
-              id="appliance_type"
-              name="appliance_type"
-              required
-              value={formData.appliance_type}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-orange-500 focus:outline-none transition-colors"
-            >
-              <option value="">Select an appliance</option>
-              <option value="TV">TV / Television</option>
-              <option value="AC">Air Conditioner (AC)</option>
-              <option value="Refrigerator">Refrigerator / Fridge</option>
-              <option value="Cooler">Cooler / Air Cooler</option>
-              <option value="Washing Machine">Washing Machine</option>
-              <option value="Microwave">Microwave Oven</option>
-              <option value="Other">Other</option>
-            </select>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label htmlFor="appliance_type" className="block text-sm font-semibold text-gray-700 mb-2">
+                Appliance Type *
+              </label>
+              <select
+                id="appliance_type"
+                name="appliance_type"
+                required
+                value={formData.appliance_type}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-orange-500 focus:outline-none transition-colors"
+              >
+                <option value="">Select an appliance</option>
+                <option value="TV">TV / Television</option>
+                <option value="AC">Air Conditioner (AC)</option>
+                <option value="Refrigerator">Refrigerator / Fridge</option>
+                <option value="Cooler">Cooler / Air Cooler</option>
+                <option value="Washing Machine">Washing Machine</option>
+                <option value="Microwave">Microwave Oven</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            {formData.appliance_type && (
+              <div>
+                <label htmlFor="appliance_brand" className="block text-sm font-semibold text-gray-700 mb-2">
+                  Brand *
+                </label>
+                <select
+                  id="appliance_brand"
+                  name="appliance_brand"
+                  required
+                  value={formData.appliance_brand}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-orange-500 focus:outline-none transition-colors"
+                >
+                  <option value="">Select brand</option>
+                  {brands[formData.appliance_type]?.map((brand) => (
+                    <option key={brand} value={brand}>
+                      {brand}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
 
           <div className="mb-6">
